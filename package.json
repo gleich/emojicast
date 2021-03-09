@@ -9,7 +9,8 @@
     "publish": "ray archive",
     "dev": "ray develop",
     "format": "prettier -w .",
-    "format::check": "prettier --check ."
+    "format::check": "prettier --check .",
+    "lint": "eslint ."
   },
   "keywords": [
     "wakatime",
