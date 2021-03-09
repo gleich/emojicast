@@ -1,0 +1,10 @@
+{
+  "name": "wakacast",
+  "version": "1.0.0",
+  "description": "A wakatime.com extension for raycast",
+  "main": "src/index.ts",
+  "repository": "https://github.com/Matt-Gleich/wakacast.git",
+  "author": "Matthew Gleich <git@mattglei.ch>",
+  "license": "MPL-2.0",
+  "private": true
+}
