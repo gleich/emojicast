@@ -1,0 +1,7 @@
+{
+  "name": "raycast-commands",
+  "version": "0.1.0-alpha",
+  "description": "Raycast Commands API",
+  "types": "dist/index",
+  "author": "Raycast Technologies Ltd."
+}
