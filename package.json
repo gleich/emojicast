@@ -8,7 +8,9 @@
   "private": true,
   "scripts": {
     "publish": "ray archive",
-    "dev": "ray develop"
+    "dev": "ray develop",
+    "format": "prettier -w .",
+    "format::check": "prettier --check ."
   },
   "raycastCommand": {
     "title": "View Wakatime Languages",
@@ -27,5 +29,8 @@
   },
   "dependencies": {
     "typescript": "^4.2.3"
+  },
+  "devDependencies": {
+    "prettier": "^2.2.1"
   }
 }
