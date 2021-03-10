@@ -1,12 +1,12 @@
 {
   "name": "emojicast",
   "version": "1.0.0",
-  "description": "A emoji selector for raycast",
+  "description": "An emoji selector for raycast",
   "author": "Matthew Gleich <git@mattglei.ch>",
   "license": "MPL-2.0",
   "private": true,
   "scripts": {
-    "publish": "ray archive",
+    "publish": "ray archive -o build/",
     "dev": "ray develop",
     "format": "prettier -w .",
     "format::check": "prettier --check .",

@@ -5,6 +5,8 @@ import {
   ListViewItem,
   Icon,
   setClipboardContents,
+  log,
+  LogLevel,
 } from 'raycast-commands'
 import emojis from 'emoji.json'
 
@@ -12,6 +14,7 @@ export function init(
   _environment: Environment,
   completion: InitCallback
 ): void {
+  log(LogLevel.Debug, 'Started up')
   completion({ success: true })
   render(() => ({
     kind: 'listView',
@@ -61,6 +64,7 @@ function genEmojiList(): ListViewItem[] {
         ' women',
         'men ',
         ' men',
+        'flag: ',
       ])
     ) {
       continue
@@ -93,6 +97,7 @@ function genEmojiList(): ListViewItem[] {
     })
     addedEmojis.push(emoji.name)
   }
+  log(LogLevel.Debug, `Generated list of ${items.length} emojis`)
 
   return items
 }
