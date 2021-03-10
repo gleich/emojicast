@@ -1,5 +1,5 @@
 {
-  "name": "wakacast",
+  "name": "emojicast",
   "version": "1.0.0",
   "description": "A emoji selector for raycast",
   "author": "Matthew Gleich <git@mattglei.ch>",
@@ -22,9 +22,9 @@
     "url": "https://github.com/Matt-Gleich/emojicast"
   },
   "raycastCommand": {
-    "title": "Copy a Emoji to System Clipboard",
+    "title": "Copy an Emoji",
     "packageName": "Emojis",
-    "icon": "Icon.Clipboard",
+    "icon": "🚀",
     "type": "view",
     "debug": {
       "reloadShortcut": {
@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "@types/raycast-commands": "file:./api",
+    "emoji.json": "^13.1.0",
     "typescript": "^4.2.3"
   },
   "devDependencies": {
