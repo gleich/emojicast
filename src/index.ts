@@ -7,6 +7,6 @@ export function init(
   completion({ success: true })
   render(() => ({
     kind: 'detailView',
-    markdown: '# Welcome to wakacast :)',
+    markdown: '# Welcome to emojicast :)',
   }))
 }

@@ -1,3 +1,3 @@
-# wakacast
+# emojicast
 
-⏰ A wakatime.com extension for raycast
+🚀 An emoji selector for raycast

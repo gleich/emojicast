@@ -1,7 +1,7 @@
 {
   "name": "wakacast",
   "version": "1.0.0",
-  "description": "A wakatime.com extension for raycast",
+  "description": "A emoji selector for raycast",
   "author": "Matthew Gleich <git@mattglei.ch>",
   "license": "MPL-2.0",
   "private": true,
@@ -13,18 +13,18 @@
     "lint": "eslint ."
   },
   "keywords": [
-    "wakatime",
-    "languages",
-    "time"
+    "emojis",
+    "search",
+    "copy and paste"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Matt-Gleich/wakacast"
+    "url": "https://github.com/Matt-Gleich/emojicast"
   },
   "raycastCommand": {
-    "title": "View Your Wakatime Languages",
-    "packageName": "Wakatime",
-    "icon": "⏰",
+    "title": "Copy a Emoji to System Clipboard",
+    "packageName": "Emojis",
+    "icon": "Icon.Clipboard",
     "type": "view",
     "debug": {
       "reloadShortcut": {
