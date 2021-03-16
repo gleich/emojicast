@@ -64,7 +64,6 @@ function genEmojiList(): ListViewItem[] {
         ' women',
         'men ',
         ' men',
-        'flag: ',
       ])
     ) {
       continue
