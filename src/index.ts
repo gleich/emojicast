@@ -83,7 +83,7 @@ function genEmojiList(): ListViewItem[] {
               {
                 title: 'Copy to clipboard',
                 icon: Icon.Clipboard,
-                onSelectItem: () =>
+                onAction: () =>
                   setClipboardContents(
                     { text: emoji.char, type: 'text' },
                     true

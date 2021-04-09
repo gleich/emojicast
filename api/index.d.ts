@@ -102,12 +102,13 @@ declare module "RaycastBridge" {
      * Supporting Bridge Parameter Types
      */
     export type Namespace = "debug" | "ui" | "net" | "app";
-    export type Method = "log" | "render" | "resumeHTTPRequest" | "cancelHTTPRequest" | "open" | "setClipboardContents" | "clearClipboardContents" | "setTimeout" | "clearTimeout" | "allLocalStorageItems" | "getLocalStorageItem" | "setLocalStorageItem" | "removeLocalStorageItem" | "clearLocalStorage" | "showToast";
+    export type Method = "log" | "render" | "resumeHTTPRequest" | "cancelHTTPRequest" | "open" | "setClipboardContents" | "clearClipboardContents" | "setTimeout" | "clearTimeout" | "allLocalStorageItems" | "getLocalStorageItem" | "setLocalStorageItem" | "removeLocalStorageItem" | "clearLocalStorage" | "showToast" | "hideToast" | "changeToast";
     export type Arguments = Record<string | number | symbol, unknown>;
     export type Callback = (result: Result<CallbackResult>) => unknown;
     export type CallbackResult = {
         type: string;
         data: unknown;
+        completion: Completion;
     };
     export type CallbackInfo = Record<string, CallbackMode>;
     export type CallbackMode = "once" | "keepAlive";
@@ -179,7 +180,7 @@ declare module "RaycastApplication" {
      * Toast API
      */
     /**
-     * A Toast with a certain style, title, and message
+     * A Toast with a certain style, title, and message.
      * @category User Interface
      */
     export interface Toast {
@@ -187,22 +188,37 @@ declare module "RaycastApplication" {
          * Shows the Toast
          */
         show(): Promise<void>;
+        /**
+         * Hides the Toast
+         */
+        hide(): Promise<void>;
+        /**
+         * Updates the style, title, or message of an existing Toast.
+         * Changing the style parameter will cause the Toast to auto-hide.
+         * @param style - The visual style of the Toast
+         * @param title - The title that will be updated in the Toast
+         * @param message - The message that will be updated in the Toast
+         */
+        change(newStyle?: ToastStyle, newTitle?: string, newMessage?: string): Promise<void>;
     }
     /**
      * Defines the visual style of the Toast. Use {@link ToastStyle.Success} for confirmations and {@link ToastStyle.Failure} for displaying errors.
-     * A HUD Toast will automatically hide the main window and show a compact Toast at the bottom of the screen.
+     * Use {@link ToastStyle.Animated} when your Toast should be shown until a process is completed.
+     * You can hide it later by using {@link Toast.hide} or changing properties of an existing Toast with {@link Toast.change}.
+     * A Toast with style {@link ToastStyle.HUD} will automatically hide the main window and show a compact Toast at the bottom of the screen.
      * @category User Interface
      */
     export enum ToastStyle {
         Success = "success",
         Failure = "failure",
+        Animated = "animated",
         HUD = "hud"
     }
     /**
-     * Present a Toast with the the given style, title, and message.
+     * Presents a Toast with the the given style, title, and message.
      * Note that you need to call {@link Toast.show} on the return value to display the Toast.
      * @category User Interface
-     * @param style - The visual tyle of the Toast
+     * @param style - The visual style of the Toast
      * @param title - The title that will be displayed in the Toast
      * @param message - The message that will be displayed in the Toast
      * @returns A representation of the Toast
@@ -574,73 +590,108 @@ declare module "RaycastUserInterface" {
     import { Binding } from "RaycastState";
     import { KeyboardShortcut } from "RaycastKeyboard";
     /**
-     * Represents a list of actions in the user interface.
-     * The actions can be grouped into sections and they can be assigned keyboard shortcuts.
-     * Use the action panel for context-specific actions on list items or detail screens.
+     * Represents a list of actions in the user interface, accessible through the action panel.
+     * The items can be grouped into sections and they can be assigned keyboard shortcuts.
+     * Use the menu for context-specific actions on list items or detail screens.
      *
-     * Note that the first (ENTER) and second (CMD + ENTER) actions have automatically assigned keyboard shortcuts.
-     * Custom shortcuts will work in addition to the defaul shortcuts.
+     * Note that when used for the action panel, the first (ENTER) and second (CMD + ENTER) menu items have automatically assigned keyboard shortcuts.
+     * Custom shortcuts will work in addition to the default shortcuts.
      *
      * @category User Interface
      */
     export interface ActionPanel {
         /**
-         * The title displayed at the top of the action panel
+         * The title displayed at the top of the panel
          */
         title?: string;
         /**
-         * The list of sections containing {@link ActionItem}.
+         * The list of sections containing {@link MenuItem}
          */
-        sections: ActionSection[];
+        sections: MenuSection[];
     }
     /**
-     * Visually separated group of actions.
-     * Use sections to group related actions together.
+     * Visually separated group of menu items.
+     * Use sections to group related menu items together.
      * @category User Interface
      */
-    export interface ActionSection {
+    export interface MenuSection {
         /**
          * Title displayed above the section
          */
         title?: string;
         /**
-         * The list of actual actions within that section.
-         * The first item in the list is the *primary* action that will be triggered by the default shortcut (ENTER), while the second item is the *secondary* action triggered by CMD + ENTER.
+         * The list of actual menu items within that section.
+         * When used for the action panel, the first item in the list is the *primary* action that will be triggered by the default shortcut (ENTER), while the second item is the *secondary* action triggered by CMD + ENTER.
          */
-        items: ActionItem[];
+        items: MenuItem[];
+    }
+    /**
+     * Represents a list of menu items in the user interface, e.g. for defining submenus in an {@link ActionPanel}.
+     * The items can be grouped into sections and they can be assigned keyboard shortcuts.
+     * Use a menu for context-specific actions on list items or detail screens.
+     *
+     * Custom shortcuts will work in addition to the default shortcuts.
+     *
+     * @category User Interface
+     */
+    export interface Menu {
+        /**
+         * The list of sections containing {@link MenuItem}
+         */
+        sections: MenuSection[];
     }
     /**
      * Represents a context-specific action that can be selected in the user interface or triggered through an assigned keyboard shortcut on the respective view
      * @category User Interface
      */
-    export interface ActionItem {
+    export interface MenuItem {
         /**
-         * The label displayed for the action
+         * The title displayed for the menu item
          */
         title: string;
         /**
-         * A optional icon displayed for the action.
-         * Try choosing from the built-in {@link Icon} list first for consistency and only choose custom icons when needed.
-         * Reference custom icons from the `assets` folder of the command by filen name only, e.g.: `my-icon.png`
-         *
-         * The size of the icon should be 32 px.
+         * A optional icon displayed for the item.
+         * See {@link ImageResource} for the supported formats and types.
          */
-        icon?: string | Icon;
+        icon?: ImageResource;
         /**
-         * The keyboard shortcut for the action
+         * The keyboard shortcut for the menu item
          */
         shortcut?: KeyboardShortcut;
         /**
-         * Callback that is triggered when an action item is selected.
-         * Use to perform custom logic or call other Raycast API methods here.
+         * Callback that is triggered when a menu item is selected.
+         * Use the handler to perform custom logic or call other Raycast API methods.
          */
-        onSelectItem: () => void;
+        onAction?: () => void;
+        /**
+         * Callback that is used to define a submenu for the item.
+         * You can return an actual {@link Menu} through a Promise (e.g. when the list of items should be dynamic or when it is loaded from the network).
+         * See {@link submenuFilterType} to configure whether Raycast filters the items locally or you apply custom filtering logic.
+         */
+        submenu?: (searchText?: string) => Promise<Menu>;
+        /**
+         * Filtering behavior for the submenu.
+         * See {@link MenuFilterType} for a description of the different behaviors.
+         * The default value is {@link MenuFilterType.Default}.
+         */
+        submenuFilterType?: MenuFilterType;
+    }
+    /**
+     * Defines the behavior for the search bar filtering of a menu.
+     * {@link MenuFilterType.Default} means that Raycast locally filters the returned set of items when the user types into the search field.
+     * {@link MenuFilterType.Custom} means that Raycast passes the current search text to the command, which is then responsible for returning the relevant set of items for that search text.
+     * @category User Interface
+     */
+    export enum MenuFilterType {
+        Default = "default",
+        Custom = "custom"
     }
     /**
      * Union type for the supported top-level views
      * @category User Interface
      */
-    export type View = CommandView | ListView | DetailView;
+    type View = CommandView | ListView | DetailView;
+    export default View;
     /**
      * Common properties of all views
      * @category User Interface
@@ -713,7 +764,7 @@ declare module "RaycastUserInterface" {
     export type CommandStatus = "active" | "background";
     /**
      * Shows sections and items with built-in or custom filtering through an optional search bar.
-     * Note: Avoid large lists containing more than 200 items.
+     * **Important**: Each {@link ListViewItem} needs a **unique ID**
      * @category User Interface
      */
     export interface ListView extends NavigationViewInterface, ActionViewInterface {
@@ -732,13 +783,17 @@ declare module "RaycastUserInterface" {
          */
         onSelectItem?: (id?: string) => void;
         /**
-         * A two-way binding that updates the id of the selected item.
+         * A two-way binding that updates the id of the selected item
          */
         selectedItemId?: Binding<string>;
         /**
          * Indicates whether the search bar should be shown or hidden
          */
         searchBarHidden?: boolean;
+        /**
+         * Placeholder text that will be shown in the search bar
+         */
+        searchBarPlaceholder?: string;
     }
     /**
      * Visually separated group of list items.
@@ -748,13 +803,17 @@ declare module "RaycastUserInterface" {
     export interface ListViewSection {
         kind: "listViewSection";
         /**
-         * ID of the section
+         * ID of the section. **Important**: Make sure to assing each section a **unique ID**
          */
         id: string;
         /**
          * Title displayed above the section
          */
         title?: string;
+        /**
+         * An optional subtitle displayed next to the title of the section
+         */
+        subtitle?: string;
         /**
          * The list of actual items within that section
          */
@@ -767,7 +826,7 @@ declare module "RaycastUserInterface" {
     export interface ListViewItem {
         kind: "listViewItem";
         /**
-         * The ID of the item
+         * The ID of the item. **Important**: Make sure to assign a **unique ID** to each item (globally, across sections)
          */
         id: string;
         /**
@@ -776,13 +835,9 @@ declare module "RaycastUserInterface" {
         title: string;
         /**
          * A optional icon displayed for the list item.
-         * Try choosing from the built-in {@link Icon} list first for consistency and only choose custom icons when needed.
-         * Reference custom icons from the `assets` folder of the command by filen name only, e.g.: `my-icon.png`
-         * You can also use an Emoji or reference icons by absolute HTTPS urls.
-         *
-         * The size of the icon should be 32 px.
+         * See {@link ImageResource} for the supported formats and types.
          */
-        icon?: string | Icon;
+        icon?: ImageResource;
         /**
          * An optional subtitle displayed next to the main title
          */
@@ -792,9 +847,10 @@ declare module "RaycastUserInterface" {
          */
         accessoryTitle?: string;
         /**
-         * TBD: Support accessory icon
+         * An additional icon displayed for the item
+         * See {@link ImageResource} for the supported formats and types.
          */
-        accessoryIcon?: string;
+        accessoryIcon?: ImageResource;
         /**
          * An optional property used for indexing.
          * The string set here will enable filtering within that string through the search bar.
@@ -802,7 +858,7 @@ declare module "RaycastUserInterface" {
          */
         index?: string;
         /**
-         * Action provider that returns the ActionPanel that will be set for the selected list item.
+         * Action provider that returns the {@link ActionPanel} that will be set for the selected list item.
          * This is a convenience method that allows you to specify the actions that should be applicable for the selected list item.
          * Alternatively you can manage the state of the action panel by updating the `actions` property of {@link ListView} and re-rendering.
          * **Note**: If you set this function, the actions set on the {@link ListView} will be ignored.
@@ -819,6 +875,57 @@ declare module "RaycastUserInterface" {
          * The CommonMark string to be rendered
          */
         markdown: string;
+    }
+    /**
+     * Union type for the supported image types.
+     * Note that the size of an icon should be 32 px.
+     * The following options are supported:
+     * - Choosing from the built-in {@link Icon} list (prefer that option for consistency)
+     * - Reference custom icons from the `assets` folder of the command by file name only, e.g.: `my-icon.png`
+     * - Specify a single emoji as string
+     * - Reference absolute HTTPS urls
+     * - Use {@link Image} to specify both a light and dark themed version and/or apply image transforms (e.g. circling).
+     * @category User Interface
+     */
+    export type ImageResource = string | Icon | Image;
+    type ImageData = string | Icon;
+    /**
+     * Class for specifying themed images (light, dark) and applying image transforms (e.g. circling).
+     * @category User Interface
+     */
+    export class Image {
+        private imageData?;
+        private darkImageData?;
+        private options;
+        /**
+         * Constructor for specifying light and dark images.
+         * If the dark version is not provided, the first parameter will be used for both themes.
+         */
+        constructor(imageData?: ImageData, darkImageData?: ImageData);
+        /**
+         * Changes the shape of the image to a circle
+         *
+         * @category User Interface
+         * @returns {@link Image} object.
+         *
+         * @example
+         * ```
+         * new Image("user-light.png").circled()
+         * ```
+         */
+        circled(): this;
+        /**
+         * Changes the shape of the image to a rounded rectangle
+         *
+         * @category User Interface
+         * @returns {@link Image} object.
+         *
+         * @example
+         * ```
+         * new Image("user-light.png").rounded()
+         * ```
+         */
+        rounded(): this;
     }
     /**
      * List of built-in icons that can be used for actions or lists
@@ -855,7 +962,7 @@ declare module "RaycastUserInterface" {
         MemoryChip = "memorychip-16",
         Message = "message-16",
         Pencil = "pencil-16",
-        Person = "user-circle-16",
+        Person = "person-crop-circle-16",
         Phone = "phone-16",
         Pin = "pin-16",
         Plus = "plus-16",
@@ -872,11 +979,11 @@ declare module "RaycastUserInterface" {
         Upload = "square-and-arrow-up-16",
         Video = "video-16",
         Window = "macwindow-16",
-        XmarkCircle = "close-circle-16"
+        XmarkCircle = "xmark-circle-16"
     }
 }
 declare module "RaycastRendering" {
-    import { View } from "RaycastUserInterface";
+    import View from "RaycastUserInterface";
     /**
      * Main rendering function that must return a {@link CommandView} with its child views.
      * @category User Interface
