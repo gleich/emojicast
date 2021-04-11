@@ -38,34 +38,8 @@ function genEmojiList(): ListViewItem[] {
   for (let i = 0; i < emojis.length; i++) {
     const emoji = emojis[i]
 
-    // Making sure the emoji isn't a duplicate
-    if (addedEmojis.includes(emoji.name)) {
-      continue
-    }
-
-    // Ignoring variants
-    if (
-      includesAny(emoji.name, [
-        ' light skin tone',
-        ' medium-light skin tone',
-        ' medium skin tone',
-        ' medium-dark skin tone',
-        ' dark skin tone',
-        ' bald',
-        ' white hair',
-        ' blond hair',
-        ' curly hair',
-        ' red hair',
-        ' woman',
-        'woman ',
-        ' man',
-        'man ',
-        'women ',
-        ' women',
-        'men ',
-        ' men',
-      ])
-    ) {
+    // Making sure the emoji isn't a duplicate and isn't a variant
+    if ((addedEmojis.includes(emoji.name), emoji.codes.includes(' '))) {
       continue
     }
 
@@ -99,14 +73,4 @@ function genEmojiList(): ListViewItem[] {
   log(LogLevel.Debug, `Generated list of ${items.length} emojis`)
 
   return items
-}
-
-// Check if a string contains any string in the given array
-function includesAny(str: string, searchStrings: string[]): boolean {
-  for (const searchString of searchStrings) {
-    if (str.includes(searchString)) {
-      return true
-    }
-  }
-  return false
 }
