@@ -154,16 +154,51 @@ func sortEmojis(emojis []emoji) []emojiSet {
 }
 
 func writeSorted(sortedEmojis []emojiSet) error {
-	fpath := path.Join("..", "src", "emojis.json")
+	fpath := path.Join("..", "src", "emojiData.ts")
 	log.Println("Writing to", fpath)
 
-	jsonData, err := json.Marshal(sortedEmojis)
-	if err != nil {
-		return err
+	typescript := `export interface EmojiSet {
+  code: string
+  char: string
+  name: string
+  group: string
+  variants: Emoji[]
+}
+
+export interface Emoji {
+  codes: string
+  char: string
+  name: string
+  group: string
+}
+
+export const emojis: EmojiSet[] = [
+	`
+	for _, set := range sortedEmojis {
+		varintTS := "["
+		for _, varint := range set.Variants {
+			varintTS += fmt.Sprintf(
+				"{codes: '%v', char: '%v', name: '%v', group: '%v'},",
+				varint.Codes,
+				varint.Char,
+				varint.Name,
+				varint.Group,
+			)
+		}
+		varintTS += "]"
+		typescript += fmt.Sprintf(
+			"{code: '%v', char: '%v', name: '%v', group: '%v', variants: %v},",
+			set.Code,
+			set.Char,
+			set.Name,
+			set.Group,
+			varintTS,
+		)
 	}
+	typescript += "]"
 
 	// Remove it if it exists
-	_, err = os.Stat(fpath)
+	_, err := os.Stat(fpath)
 	if !os.IsNotExist(err) {
 		err := os.Remove(fpath)
 		log.Println("Removed", fpath)
@@ -178,11 +213,12 @@ func writeSorted(sortedEmojis []emojiSet) error {
 	}
 	defer file.Close()
 
-	_, err = file.Write(jsonData)
+	_, err = file.WriteString(typescript)
 	if err != nil {
 		return err
 	}
 
-	log.Println("Wrote to", fpath)
+	log.Println("Wrote changes to", fpath)
+
 	return nil
 }
