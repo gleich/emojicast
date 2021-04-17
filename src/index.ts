@@ -1,22 +1,13 @@
-import {
-  Environment,
-  InitCallback,
-  render,
-  ListViewItem,
-  Icon,
-  setClipboardContents,
-  log,
-  LogLevel,
-} from 'raycast-commands'
-import emojis from 'emoji.json'
+import * as ray from 'raycast-commands'
+import { emojis } from './emojiData'
 
 export function init(
-  _environment: Environment,
-  completion: InitCallback
+  _environment: ray.Environment,
+  completion: ray.InitCallback
 ): void {
-  log(LogLevel.Debug, 'Started up')
+  ray.log(ray.LogLevel.Debug, 'Started up')
   completion({ success: true })
-  render(() => ({
+  ray.render(() => ({
     kind: 'listView',
     isLoading: false,
     sections: [
@@ -31,46 +22,39 @@ export function init(
 }
 
 // Generate a list of list view items for each emoji
-function genEmojiList(): ListViewItem[] {
-  const items: ListViewItem[] = []
-  const addedEmojis: string[] = []
+function genEmojiList(): ray.ListViewItem[] {
+  const items: ray.ListViewItem[] = []
 
   for (let i = 0; i < emojis.length; i++) {
     const emoji = emojis[i]
-
-    // Making sure the emoji isn't a duplicate and isn't a variant
-    if ((addedEmojis.includes(emoji.name), emoji.codes.includes(' '))) {
-      continue
-    }
-
     items.push({
       kind: 'listViewItem',
       id: String(i),
       title: emoji.name,
-      subtitle: emoji.category,
+      subtitle: emoji.group,
       icon: emoji.char,
       index: emoji.name,
-      actions: () => ({
-        sections: [
-          {
-            items: [
-              {
-                title: 'Copy to clipboard',
-                icon: Icon.Clipboard,
-                onAction: () =>
-                  setClipboardContents(
-                    { text: emoji.char, type: 'text' },
-                    true
-                  ),
-              },
-            ],
-          },
-        ],
-      }),
+      actions: copyAction(emoji.char),
     })
-    addedEmojis.push(emoji.name)
   }
-  log(LogLevel.Debug, `Generated list of ${items.length} emojis`)
+  ray.log(ray.LogLevel.Debug, `Generated list of ${items.length} emojis`)
 
   return items
+}
+
+function copyAction(char: string) {
+  return () => ({
+    sections: [
+      {
+        items: [
+          {
+            title: 'Copy to clipboard',
+            icon: ray.Icon.Clipboard,
+            onAction: () =>
+              ray.setClipboardContents({ text: char, type: 'text' }, true),
+          },
+        ],
+      },
+    ],
+  })
 }

@@ -38,7 +38,6 @@
   },
   "dependencies": {
     "@types/raycast-commands": "file:./api",
-    "emoji.json": "^13.1.0",
     "typescript": "^4.2.3"
   },
   "devDependencies": {
