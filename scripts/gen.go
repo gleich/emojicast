@@ -158,12 +158,14 @@ func writeSorted(sortedEmojis []emojiSet) error {
 	log.Println("Writing to", fpath)
 
 	typescript := `export interface EmojiSet {
+  name: string
   char: string
   group: string
   variants: Emoji[]
 }
 
 export interface Emoji {
+  name: string
   char: string
   group: string
 }
@@ -174,14 +176,16 @@ export const emojis: EmojiSet[] = [
 		varintTS := "["
 		for _, varint := range set.Variants {
 			varintTS += fmt.Sprintf(
-				"{char: '%v', group: '%v'},",
+				"{name: '%v', char: '%v', group: '%v'},",
+				varint.Name,
 				varint.Char,
 				varint.Group,
 			)
 		}
 		varintTS += "]"
 		typescript += fmt.Sprintf(
-			"{char: '%v', group: '%v', variants: %v},",
+			"{name: '%v', char: '%v', group: '%v', variants: %v},",
+			set.Name,
 			set.Char,
 			set.Group,
 			varintTS,
