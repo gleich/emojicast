@@ -101,8 +101,8 @@ declare module "RaycastBridge" {
     /**
      * Supporting Bridge Parameter Types
      */
-    export type Namespace = "debug" | "ui" | "net" | "app";
-    export type Method = "log" | "render" | "resumeHTTPRequest" | "cancelHTTPRequest" | "open" | "setClipboardContents" | "clearClipboardContents" | "setTimeout" | "clearTimeout" | "allLocalStorageItems" | "getLocalStorageItem" | "setLocalStorageItem" | "removeLocalStorageItem" | "clearLocalStorage" | "showToast" | "hideToast" | "changeToast";
+    export type Namespace = "debug" | "ui" | "net" | "app" | "fs";
+    export type Method = "log" | "render" | "resumeHTTPRequest" | "cancelHTTPRequest" | "open" | "setClipboardContents" | "clearClipboardContents" | "setTimeout" | "clearTimeout" | "allLocalStorageItems" | "getLocalStorageItem" | "setLocalStorageItem" | "removeLocalStorageItem" | "clearLocalStorage" | "showToast" | "hideToast" | "changeToast" | "readTextFile" | "writeTextFile" | "exists" | "copy" | "rename" | "remove" | "stat" | "makeDirectory" | "readDirectory";
     export type Arguments = Record<string | number | symbol, unknown>;
     export type Callback = (result: Result<CallbackResult>) => unknown;
     export type CallbackResult = {
@@ -319,37 +319,237 @@ declare module "RaycastEnvironment" {
      */
     export interface Environment {
         /**
-         * The version of the main Raycast app.
+         * The version of the main Raycast app
          */
         raycastVersion: string;
         /**
-         * The name of the command as specified in the manifest file.
+         * The name of the extension, as specified in package.json
+         */
+        extensionName: string;
+        /**
+         * The name of the launched command, as specified in package.json
          */
         commandName: string;
         /**
-         * The version of the command as specified in the manifest file.
+         * Preferences passed to the command.
+         * Preferences are keyed by name and contain the value (entered in Raycast Preferences) in the {@link Preference} object.
          */
-        commandVersion: string;
+        preferences: Preferences;
         /**
-         * Any active search bar text at the time of launching the command.
-         */
-        searchText: string;
-        /**
-         * Environment variables passed to the file via a `.env.json` file.
+         * Environment variables passed to the command
          */
         vars: EnvVars;
     }
     /**
-     * A record type holding the environment variables that have been passed to the command.
+     * A record type holding the environment variables that have been passed to the command
      * @category Environment
      */
     export type EnvVars = Record<string, unknown>;
+    /**
+     * A record type holding the preferences that have been passed to the command
+     * @category Environment
+     */
+    export type Preferences = Record<string, Preference>;
+    /**
+     * Holds data about a single preference item (entered in Raycast Preferences).
+     * Maps to the properties declared in package.json.
+     * @category Environment
+     */
+    export interface Preference {
+        value?: unknown;
+        default?: unknown;
+        required: boolean;
+        type: string;
+    }
     /**
      * Typealias for the init callback function. Providing a successful {@link Result} indicates that initialization was successful and the command can continue running.
      * If the command cannot continue running, e.g. because of version incompatibility based on data from {@link Environment}, provide an error message that will be shown in Raycast.
      * @category Environment
      */
     export type InitCallback = (result: Result<void>) => void;
+}
+declare module "RaycastFS" {
+    /**
+     * FileSystem API
+     */
+    /**
+     * Returns the contents of the text file at the specified path.
+     *
+     * @category File System
+     * @param path The path to the file
+     * @returns Contents of the text file
+     *
+     * @example
+     * Use a relative path to read text files in the support directory.
+     * ```
+     * const fileContents = await readTextFile("file.txt")
+     * ```
+     *
+     * @example
+     * Use `~` to read text files relative to the user's home directory.
+     * ```
+     * const fileContents = await readTextFile("~/Downloads/file.txt")
+     * ```
+     *
+     * @example
+     * Use an absolute path to read any text file.
+     * ```
+     * const fileContents = await readTextFile("/var/log/logs.txt")
+     * ```
+     */
+    export function readTextFile(path: string): Promise<string>;
+    /**
+     * Options for writing the file
+     */
+    export interface WriteFileOptions {
+        /** If `true` it appends data to a file instead of overwriting */
+        append?: boolean;
+    }
+    /**
+     * Writes text data to the given path, creating a new file if needed or overwriting an existing one.
+     * Creates intermediate directories that don't exist.
+     *
+     * @category File System
+     * @param path The path to the file
+     * @param data A text data containing the contents of the file
+     * @param options WriteFileOptions - options for writing the file
+     *
+     * @example
+     * Use a relative path to write text files in the support directory.
+     * ```
+     * await writeTextFile("file.txt", "file content")
+     * ```
+     *
+     * @example
+     * Use `~` to write text files relative to the user's home directory.
+     * ```
+     * await writeTextFile("~/Downloads/file.txt", "file content")
+     * ```
+     *
+     * @example
+     * Use an absolute path to write any text file.
+     * ```
+     * await writeTextFile("/var/log/logs.txt", "file content")
+     * ```
+     */
+    export function writeTextFile(path: string, data: string, options?: WriteFileOptions): Promise<void>;
+    /**
+     * Returns a value that indicates whether a file or directory exists at a specified path.
+     *
+     * @category File System
+     * @param path The path to the file or directory
+     */
+    export function exists(path: string): Promise<boolean>;
+    /**
+     * Describes the file type
+     *
+     * {@link FileInfo}
+     * @category File System
+     */
+    export enum FileType {
+        File = "File",
+        Directory = "Directory",
+        Symlink = "Symlink"
+    }
+    /**
+     * Describes the file.
+     *
+     * Returned by {@link stat}
+     * @category File System
+     */
+    export interface FileInfo {
+        /**
+        The type of the file.
+        */
+        readonly fileType: FileType;
+        /**
+        The size of the file in bytes.
+        */
+        readonly size: number;
+        /**
+        The creation time of the file.
+        */
+        readonly creationDate: Date | null;
+        /**
+        The last modification time of the file.
+        */
+        readonly modificationDate: Date | null;
+        /**
+         * True if this is info for a regular file. Mutually exclusive to {@link isDirectory} and {@link isSymlink}
+         */
+        readonly isFile: boolean;
+        /**
+         * True if this is info for a regular file. Mutually exclusive to {@link isFile} and {@link isSymlink}
+         */
+        readonly isDirectory: boolean;
+        /**
+         * True if this is info for a regular file. Mutually exclusive to {@link isFile} and {@link isDirectory}
+         */
+        readonly isSymlink: boolean;
+    }
+    /**
+     * Returns the file information for the specified path.
+     *
+     * @category File System
+     * @returns File information
+     */
+    export function stat(path: string): Promise<FileInfo>;
+    /**
+     * Options for copying a file or directory
+     */
+    export interface CopyFileOptions {
+        /**
+         * If `true` it will overwrite the target file or directory
+         * @default true
+         */
+        overwrite?: boolean;
+    }
+    /**
+     * Copies the file or directory at the specified path to a new location.
+     * For directories, it copies its content.
+     * Overwrites existing content at the target location by default.
+     *
+     * @category File System
+     * @param fromPath The path to the file or directory to copy
+     * @param toPath The path at which to place the copy
+     * @param options Options for copying
+     */
+    export function copy(fromPath: string, toPath: string, options?: CopyFileOptions): Promise<void>;
+    /**
+     * Moves (renames) the file or directory at the specified path to a new location.
+     * Directories are moved together with all of its content.
+     *
+     * @category File System
+     * @param oldPath The path to the file or directory to move
+     * @param newPath The new path for the file or directory
+     */
+    export function rename(oldPath: string, newPath: string): Promise<void>;
+    /**
+     * Removes the file or directory at the specified path.
+     * Does nothing if the file or directory doesn't exist.
+     *
+     * @category File System
+     * @param path The path to the file or directory
+     */
+    export function remove(path: string): Promise<void>;
+    /**
+     * Creates a new directory at the specified path.
+     * Does nothing if the directory already exists.
+     *
+     * @category File System
+     * @param path The path to the directory
+     * @returns
+     */
+    export function makeDirectory(path: string): Promise<void>;
+    /**
+     * Reads the contents of the given directory.
+     * Returns names for all items, excluding `.`, `..`
+     *
+     * @category File System
+     * @param path The path to the directory
+     * @returns Names for all items, excluding `.`, `..`
+     */
+    export function readDirectory(path: string): Promise<Array<string>>;
 }
 declare module "RaycastKeyboard" {
     /**
@@ -646,6 +846,11 @@ declare module "RaycastUserInterface" {
      */
     export interface MenuItem {
         /**
+         * ID of the menu item.
+         * **Important**: This value is optional. If you are using this – make sure to assing each item a **unique ID**
+         */
+        id?: string;
+        /**
          * The title displayed for the menu item
          */
         title: string;
@@ -664,7 +869,7 @@ declare module "RaycastUserInterface" {
          */
         onAction?: () => void;
         /**
-         * Callback that is used to define a submenu for the item.
+         * Callback used to define a submenu for the item.
          * You can return an actual {@link Menu} through a Promise (e.g. when the list of items should be dynamic or when it is loaded from the network).
          * See {@link submenuFilterType} to configure whether Raycast filters the items locally or you apply custom filtering logic.
          */
@@ -690,7 +895,7 @@ declare module "RaycastUserInterface" {
      * Union type for the supported top-level views
      * @category User Interface
      */
-    type View = CommandView | ListView | DetailView;
+    type View = CommandView | ListView | DetailView | FormView;
     export default View;
     /**
      * Common properties of all views
@@ -763,6 +968,175 @@ declare module "RaycastUserInterface" {
      */
     export type CommandStatus = "active" | "background";
     /**
+     * Union type for the supported form items
+     * @category User Interface
+     */
+    export type FormViewItem = FormViewCheckbox | FormViewTextField | FormViewDropDown | FormViewSeparator | FormViewTokenEditor;
+    /**
+     * A possible value of the {@link FormItem} that will be used as an input for {@link FormView.onSubmit} callback
+     */
+    export type FormValue = string | number | boolean;
+    /**
+     * Shows a list of form items such as {@link FormViewTextField}, {@link FormViewCheckbox} or {@link FormViewDropDown}.
+     * **Important**: Each {@link FormViewItem} needs a **unique ID**
+     * @category User Interface
+     */
+    export interface FormView extends NavigationViewInterface, ActionViewInterface {
+        kind: "formView";
+        /**
+         * The list of form items
+         */
+        items: FormViewItem[];
+        /**
+         * The title of the submit action button. If no title is set, Raycast displays a default title.
+         */
+        submitTitle?: string;
+        /**
+         * Callback that is triggered when the submit action button is pressed.
+         * Use the handler to perform custom validation logic and call other Raycast API methods.
+         * The handler receives a Record object containing the user input:
+         * The key is the ID of a {@link FormItem} and the value is the {@link FormValue} depending on the type of the item.
+         */
+        onSubmit: (input: Record<string, FormValue>) => void;
+    }
+    export interface FormItem {
+        kind: string;
+        /**
+         * ID of the form item. **Important**: Make sure to assing each item a **unique ID**
+         */
+        id: string;
+        /**
+         * The title displayed on the left side of the item
+         */
+        title?: string;
+        /**
+         * Indicates whether the value of the item should be persisted after submitting, and restored next time the form is rendered
+         */
+        storeValue?: boolean;
+        /**
+         * The default value of the item
+         */
+        value?: unknown;
+    }
+    /**
+     * A form item with a text field for input.
+     * **Important**: Each {@link FormItem} needs a **unique ID**
+     * @category User Interface
+     */
+    export interface FormViewTextField extends FormItem {
+        kind: "formViewTextField";
+        /**
+         * The default value of the text field
+         */
+        value?: string;
+        /**
+         * Placeholder text shown in the text field
+         */
+        placeholder?: string;
+    }
+    /**
+     * A form item with a checkbox.
+     * **Important**: Each {@link FormItem} needs a **unique ID**
+     * @category User Interface
+     */
+    export interface FormViewCheckbox extends FormItem {
+        kind: "formViewCheckbox";
+        /**
+         * The default value of the checkbox
+         */
+        value?: boolean;
+        /**
+         * The title displayed on the right side of the checkbox
+         */
+        checkboxTitle: string;
+        /**
+         * Callback triggered when the selection state changes
+         */
+        onChange?: (newValue: boolean) => void;
+    }
+    /**
+     * A form item that shows a separator line.
+     * Use for grouping and visually separating form items.
+     * @category User Interface
+     */
+    export interface FormViewSeparator {
+        kind: "formViewSeparator";
+    }
+    /**
+     * A form item with a token editor that allows the user to select multiple items.
+     * **Important**: Each {@link FormItem} needs a **unique ID**
+     * @category User Interface
+     */
+    export interface FormViewTokenEditor extends FormItem {
+        kind: "formViewTokenEditor";
+        /**
+         * The IDs ({@link FormTokenValue.id}) of the default selected items
+         */
+        value?: string[];
+        /**
+         * Placeholder text shown in the token field
+         */
+        placeholder?: string;
+        /**
+         * Callback used to return a custom set of suggestions to be shown as the user types into the token field.
+         */
+        suggestions: () => Promise<FormTokenValue[]>;
+    }
+    /**
+     * The value type for a token in a {@link FormViewTokenEditor}
+     */
+    export interface FormTokenValue {
+        /**
+         * The unique ID of a token
+         */
+        id: string;
+        /**
+         * The display title of the token
+         */
+        title: string;
+        /**
+         * The visual style of the token
+         */
+        style?: FormTokenItemStyle;
+    }
+    /**
+     * The visual style of the token badge and icon
+     */
+    export interface FormTokenItemStyle {
+        /**
+         * The badge color of a token. Supported formats are hex (e.g.: "FF6363")
+         */
+        badgeColor?: string;
+        /**
+         * An icon to show in the token
+         */
+        icon?: ImageResource;
+    }
+    /**
+     * A form item with a dropdown menu.
+     * **Important**: Each {@link FormItem} needs a **unique ID**
+     * @category User Interface
+     */
+    export interface FormViewDropDown extends FormItem {
+        kind: "formViewDropdown";
+        /**
+         * Callback used to define a menu for the item.
+         * You can return an actual {@link Menu} through a Promise (e.g. when the list of items should be dynamic or when it is loaded from the network).
+         * See {@link menuFilterType} to configure whether Raycast filters the items locally or you apply custom filtering logic.
+         */
+        menu: (searchText?: string) => Promise<Menu>;
+        /**
+         * Filtering behavior of the menu.
+         * See {@link MenuFilterType} for a description of the different behaviors.
+         * The default value is {@link MenuFilterType.Default}.
+         */
+        menuFilterType?: MenuFilterType;
+        /**
+         * The ID ({@link MenuItem.id}) of the default selected item
+         */
+        value?: string;
+    }
+    /**
      * Shows sections and items with built-in or custom filtering through an optional search bar.
      * **Important**: Each {@link ListViewItem} needs a **unique ID**
      * @category User Interface
@@ -775,9 +1149,15 @@ declare module "RaycastUserInterface" {
         sections?: ListViewSection[];
         /**
          * Callback triggered when the search bar text changes.
-         * Note that built-in list filtering will be disabled when this callback is set.
+         * Note that built-in list filtering will be disabled when this callback is set
          */
         onSearchTextChange?: (text: string) => void;
+        /**
+         * Defines whether the {@link ListView.onSearchTextChange} will be triggered on every keyboard press or with a delay for throttling the events.
+         * Recommended to set to true when using custom filtering logic with asynchronous operations (e.g. network requests).
+         * **Important**: The default value is false.
+         */
+        throttlingEnabled?: boolean;
         /**
          * Callback triggered when an item in the list is selected
          */
@@ -803,7 +1183,8 @@ declare module "RaycastUserInterface" {
     export interface ListViewSection {
         kind: "listViewSection";
         /**
-         * ID of the section. **Important**: Make sure to assing each section a **unique ID**
+         * ID of the section.
+         * **Important**: Make sure to assing each section a **unique ID**
          */
         id: string;
         /**
@@ -943,7 +1324,7 @@ declare module "RaycastUserInterface" {
         Circle = "circle-16",
         Clipboard = "doc-on-clipboard-16",
         Clock = "clock-16",
-        Desktop = "desktop-computer-16",
+        Desktop = "desktopcomputer-16",
         Document = "doc-16",
         Dot = "dot-16",
         Download = "square-and-arrow-down-16",
@@ -1013,4 +1394,5 @@ declare module "raycast-commands" {
     export * from "RaycastState";
     export * from "RaycastSupport";
     export * from "RaycastUserInterface";
+    export * from "RaycastFS";
 }

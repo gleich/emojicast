@@ -1,15 +1,17 @@
 {
   "name": "emojicast",
+  "title": "Copy an Emoji",
+  "icon": "🚀",
   "version": "1.0.0",
   "description": "An emoji selector for raycast",
-  "author": "Matthew Gleich <git@mattglei.ch>",
+  "author": "Matthew Gleich <email@mattglei.ch>",
   "license": "MPL-2.0",
   "private": true,
   "scripts": {
-    "publish": "ray archive -o build/",
+    "publish": "ray archive",
     "dev": "ray develop",
     "format": "prettier -w .",
-    "format::check": "prettier --check .",
+    "format:check": "prettier --check .",
     "lint": "eslint ."
   },
   "keywords": [
@@ -21,21 +23,14 @@
     "type": "git",
     "url": "https://github.com/Matt-Gleich/emojicast"
   },
-  "raycastCommand": {
-    "title": "Copy an Emoji",
-    "packageName": "Emojis",
-    "icon": "🚀",
-    "type": "view",
-    "debug": {
-      "reloadShortcut": {
-        "modifiers": [
-          "cmd",
-          "opt"
-        ],
-        "key": "r"
-      }
+  "commands": [
+    {
+      "name": "index",
+      "title": "Copy an Emoji",
+      "description": "Copy an emoji to your system clipboard",
+      "mode": "view"
     }
-  },
+  ],
   "dependencies": {
     "@types/raycast-commands": "file:./api",
     "typescript": "^4.2.3"
