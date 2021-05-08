@@ -12,7 +12,8 @@
     "dev": "ray develop",
     "format": "prettier -w .",
     "format:check": "prettier --check .",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "gen": "cd scripts && go run gen.go && cd .. && yarn run format"
   },
   "keywords": [
     "emojis",
