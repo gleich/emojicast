@@ -35,9 +35,6 @@
   "dependencies": {
     "@raycast/api": "file:/Applications/Raycast.app/Contents/Resources/RaycastCommands_RaycastCommands.bundle/Contents/Resources/api"
   },
-  "engines": {
-    "raycast": ">=1.19.0"
-  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.17.0",
     "@typescript-eslint/parser": "^4.17.0",
