@@ -4,7 +4,7 @@
   "icon": "🚀",
   "version": "1.0.0",
   "description": "An emoji selector for raycast",
-  "author": "Matthew Gleich <email@mattglei.ch>",
+  "author": "Matt Gleich <email@mattglei.ch>",
   "license": "MPL-2.0",
   "private": true,
   "scripts": {
@@ -33,14 +33,18 @@
     }
   ],
   "dependencies": {
-    "@types/raycast-commands": "file:./api",
-    "typescript": "^4.2.3"
+    "@raycast/api": "file:/Applications/Raycast.app/Contents/Resources/RaycastCommands_RaycastCommands.bundle/Contents/Resources/api"
+  },
+  "engines": {
+    "raycast": ">=1.19.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.17.0",
     "@typescript-eslint/parser": "^4.17.0",
+    "@types/react": "^17.0.13",
     "eslint": "^7.21.0",
     "eslint-config-prettier": "^8.1.0",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "typescript": "^4.2.3"
   }
 }
