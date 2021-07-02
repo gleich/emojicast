@@ -129,21 +129,21 @@ func sortEmojis(emojis []emoji) []emojiSet {
 		}
 	}
 
-	// Removing duplicate varints
+	// Removing duplicate variants
 	for i, set := range patchedSets {
 		patchedVarints := []emoji{}
 		addedNames := []string{}
-		for _, varint := range set.Variants {
+		for _, variant := range set.Variants {
 			duplicate := false
 			for _, name := range addedNames {
-				if name == varint.Name {
+				if name == variant.Name {
 					duplicate = true
 					break
 				}
 			}
 			if !duplicate {
-				patchedVarints = append(patchedVarints, varint)
-				addedNames = append(addedNames, varint.Name)
+				patchedVarints = append(patchedVarints, variant)
+				addedNames = append(addedNames, variant.Name)
 			}
 		}
 		patchedSets[i].Variants = patchedVarints
