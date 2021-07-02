@@ -2707,8 +2707,7 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'people holding hands: medium-light skin tone, medium-dark skin tone',
+        name: 'people holding hands: medium-light skin tone, medium-dark skin tone',
         char: '🧑🏼‍🤝‍🧑🏾',
         group: 'People & Body',
       },
@@ -2748,8 +2747,7 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'people holding hands: medium-dark skin tone, medium-light skin tone',
+        name: 'people holding hands: medium-dark skin tone, medium-light skin tone',
         char: '🧑🏾‍🤝‍🧑🏼',
         group: 'People & Body',
       },
@@ -2824,8 +2822,7 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'kiss: person, person, medium-light skin tone, medium-dark skin tone',
+        name: 'kiss: person, person, medium-light skin tone, medium-dark skin tone',
         char: '🧑🏼‍❤️‍💋‍🧑🏾',
         group: 'People & Body',
       },
@@ -2860,8 +2857,7 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'kiss: person, person, medium-dark skin tone, medium-light skin tone',
+        name: 'kiss: person, person, medium-dark skin tone, medium-light skin tone',
         char: '🧑🏾‍❤️‍💋‍🧑🏼',
         group: 'People & Body',
       },
@@ -2896,122 +2892,102 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: person, person, light skin tone, medium-light skin tone',
+        name: 'couple with heart: person, person, light skin tone, medium-light skin tone',
         char: '🧑🏻‍❤️‍🧑🏼',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: person, person, light skin tone, medium skin tone',
+        name: 'couple with heart: person, person, light skin tone, medium skin tone',
         char: '🧑🏻‍❤️‍🧑🏽',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: person, person, light skin tone, medium-dark skin tone',
+        name: 'couple with heart: person, person, light skin tone, medium-dark skin tone',
         char: '🧑🏻‍❤️‍🧑🏾',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: person, person, light skin tone, dark skin tone',
+        name: 'couple with heart: person, person, light skin tone, dark skin tone',
         char: '🧑🏻‍❤️‍🧑🏿',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: person, person, medium-light skin tone, light skin tone',
+        name: 'couple with heart: person, person, medium-light skin tone, light skin tone',
         char: '🧑🏼‍❤️‍🧑🏻',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: person, person, medium-light skin tone, medium skin tone',
+        name: 'couple with heart: person, person, medium-light skin tone, medium skin tone',
         char: '🧑🏼‍❤️‍🧑🏽',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: person, person, medium-light skin tone, medium-dark skin tone',
+        name: 'couple with heart: person, person, medium-light skin tone, medium-dark skin tone',
         char: '🧑🏼‍❤️‍🧑🏾',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: person, person, medium-light skin tone, dark skin tone',
+        name: 'couple with heart: person, person, medium-light skin tone, dark skin tone',
         char: '🧑🏼‍❤️‍🧑🏿',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: person, person, medium skin tone, light skin tone',
+        name: 'couple with heart: person, person, medium skin tone, light skin tone',
         char: '🧑🏽‍❤️‍🧑🏻',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: person, person, medium skin tone, medium-light skin tone',
+        name: 'couple with heart: person, person, medium skin tone, medium-light skin tone',
         char: '🧑🏽‍❤️‍🧑🏼',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: person, person, medium skin tone, medium-dark skin tone',
+        name: 'couple with heart: person, person, medium skin tone, medium-dark skin tone',
         char: '🧑🏽‍❤️‍🧑🏾',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: person, person, medium skin tone, dark skin tone',
+        name: 'couple with heart: person, person, medium skin tone, dark skin tone',
         char: '🧑🏽‍❤️‍🧑🏿',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: person, person, medium-dark skin tone, light skin tone',
+        name: 'couple with heart: person, person, medium-dark skin tone, light skin tone',
         char: '🧑🏾‍❤️‍🧑🏻',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: person, person, medium-dark skin tone, medium-light skin tone',
+        name: 'couple with heart: person, person, medium-dark skin tone, medium-light skin tone',
         char: '🧑🏾‍❤️‍🧑🏼',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: person, person, medium-dark skin tone, medium skin tone',
+        name: 'couple with heart: person, person, medium-dark skin tone, medium skin tone',
         char: '🧑🏾‍❤️‍🧑🏽',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: person, person, medium-dark skin tone, dark skin tone',
+        name: 'couple with heart: person, person, medium-dark skin tone, dark skin tone',
         char: '🧑🏾‍❤️‍🧑🏿',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: person, person, dark skin tone, light skin tone',
+        name: 'couple with heart: person, person, dark skin tone, light skin tone',
         char: '🧑🏿‍❤️‍🧑🏻',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: person, person, dark skin tone, medium-light skin tone',
+        name: 'couple with heart: person, person, dark skin tone, medium-light skin tone',
         char: '🧑🏿‍❤️‍🧑🏼',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: person, person, dark skin tone, medium skin tone',
+        name: 'couple with heart: person, person, dark skin tone, medium skin tone',
         char: '🧑🏿‍❤️‍🧑🏽',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: person, person, dark skin tone, medium-dark skin tone',
+        name: 'couple with heart: person, person, dark skin tone, medium-dark skin tone',
         char: '🧑🏿‍❤️‍🧑🏾',
         group: 'People & Body',
       },
@@ -3758,8 +3734,7 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'men holding hands: medium-light skin tone, medium-dark skin tone',
+        name: 'men holding hands: medium-light skin tone, medium-dark skin tone',
         char: '👨🏼‍🤝‍👨🏾',
         group: 'People & Body',
       },
@@ -3794,8 +3769,7 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'men holding hands: medium-dark skin tone, medium-light skin tone',
+        name: 'men holding hands: medium-dark skin tone, medium-light skin tone',
         char: '👨🏾‍🤝‍👨🏼',
         group: 'People & Body',
       },
@@ -3966,8 +3940,7 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: man, man, light skin tone, medium-light skin tone',
+        name: 'couple with heart: man, man, light skin tone, medium-light skin tone',
         char: '👨🏻‍❤️‍👨🏼',
         group: 'People & Body',
       },
@@ -3977,8 +3950,7 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: man, man, light skin tone, medium-dark skin tone',
+        name: 'couple with heart: man, man, light skin tone, medium-dark skin tone',
         char: '👨🏻‍❤️‍👨🏾',
         group: 'People & Body',
       },
@@ -3988,8 +3960,7 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: man, man, medium-light skin tone, light skin tone',
+        name: 'couple with heart: man, man, medium-light skin tone, light skin tone',
         char: '👨🏼‍❤️‍👨🏻',
         group: 'People & Body',
       },
@@ -3999,20 +3970,17 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: man, man, medium-light skin tone, medium skin tone',
+        name: 'couple with heart: man, man, medium-light skin tone, medium skin tone',
         char: '👨🏼‍❤️‍👨🏽',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: man, man, medium-light skin tone, medium-dark skin tone',
+        name: 'couple with heart: man, man, medium-light skin tone, medium-dark skin tone',
         char: '👨🏼‍❤️‍👨🏾',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: man, man, medium-light skin tone, dark skin tone',
+        name: 'couple with heart: man, man, medium-light skin tone, dark skin tone',
         char: '👨🏼‍❤️‍👨🏿',
         group: 'People & Body',
       },
@@ -4022,8 +3990,7 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: man, man, medium skin tone, medium-light skin tone',
+        name: 'couple with heart: man, man, medium skin tone, medium-light skin tone',
         char: '👨🏽‍❤️‍👨🏼',
         group: 'People & Body',
       },
@@ -4033,8 +4000,7 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: man, man, medium skin tone, medium-dark skin tone',
+        name: 'couple with heart: man, man, medium skin tone, medium-dark skin tone',
         char: '👨🏽‍❤️‍👨🏾',
         group: 'People & Body',
       },
@@ -4044,20 +4010,17 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: man, man, medium-dark skin tone, light skin tone',
+        name: 'couple with heart: man, man, medium-dark skin tone, light skin tone',
         char: '👨🏾‍❤️‍👨🏻',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: man, man, medium-dark skin tone, medium-light skin tone',
+        name: 'couple with heart: man, man, medium-dark skin tone, medium-light skin tone',
         char: '👨🏾‍❤️‍👨🏼',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: man, man, medium-dark skin tone, medium skin tone',
+        name: 'couple with heart: man, man, medium-dark skin tone, medium skin tone',
         char: '👨🏾‍❤️‍👨🏽',
         group: 'People & Body',
       },
@@ -4067,8 +4030,7 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: man, man, medium-dark skin tone, dark skin tone',
+        name: 'couple with heart: man, man, medium-dark skin tone, dark skin tone',
         char: '👨🏾‍❤️‍👨🏿',
         group: 'People & Body',
       },
@@ -4078,8 +4040,7 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: man, man, dark skin tone, medium-light skin tone',
+        name: 'couple with heart: man, man, dark skin tone, medium-light skin tone',
         char: '👨🏿‍❤️‍👨🏼',
         group: 'People & Body',
       },
@@ -4089,8 +4050,7 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: man, man, dark skin tone, medium-dark skin tone',
+        name: 'couple with heart: man, man, dark skin tone, medium-dark skin tone',
         char: '👨🏿‍❤️‍👨🏾',
         group: 'People & Body',
       },
@@ -4905,8 +4865,7 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'women holding hands: medium-light skin tone, medium-dark skin tone',
+        name: 'women holding hands: medium-light skin tone, medium-dark skin tone',
         char: '👩🏼‍🤝‍👩🏾',
         group: 'People & Body',
       },
@@ -4941,8 +4900,7 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'women holding hands: medium-dark skin tone, medium-light skin tone',
+        name: 'women holding hands: medium-dark skin tone, medium-light skin tone',
         char: '👩🏾‍🤝‍👩🏼',
         group: 'People & Body',
       },
@@ -4977,8 +4935,7 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'woman and man holding hands: light skin tone, medium-light skin tone',
+        name: 'woman and man holding hands: light skin tone, medium-light skin tone',
         char: '👩🏻‍🤝‍👨🏼',
         group: 'People & Body',
       },
@@ -4988,8 +4945,7 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'woman and man holding hands: light skin tone, medium-dark skin tone',
+        name: 'woman and man holding hands: light skin tone, medium-dark skin tone',
         char: '👩🏻‍🤝‍👨🏾',
         group: 'People & Body',
       },
@@ -4999,26 +4955,22 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'woman and man holding hands: medium-light skin tone, light skin tone',
+        name: 'woman and man holding hands: medium-light skin tone, light skin tone',
         char: '👩🏼‍🤝‍👨🏻',
         group: 'People & Body',
       },
       {
-        name:
-          'woman and man holding hands: medium-light skin tone, medium skin tone',
+        name: 'woman and man holding hands: medium-light skin tone, medium skin tone',
         char: '👩🏼‍🤝‍👨🏽',
         group: 'People & Body',
       },
       {
-        name:
-          'woman and man holding hands: medium-light skin tone, medium-dark skin tone',
+        name: 'woman and man holding hands: medium-light skin tone, medium-dark skin tone',
         char: '👩🏼‍🤝‍👨🏾',
         group: 'People & Body',
       },
       {
-        name:
-          'woman and man holding hands: medium-light skin tone, dark skin tone',
+        name: 'woman and man holding hands: medium-light skin tone, dark skin tone',
         char: '👩🏼‍🤝‍👨🏿',
         group: 'People & Body',
       },
@@ -5028,14 +4980,12 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'woman and man holding hands: medium skin tone, medium-light skin tone',
+        name: 'woman and man holding hands: medium skin tone, medium-light skin tone',
         char: '👩🏽‍🤝‍👨🏼',
         group: 'People & Body',
       },
       {
-        name:
-          'woman and man holding hands: medium skin tone, medium-dark skin tone',
+        name: 'woman and man holding hands: medium skin tone, medium-dark skin tone',
         char: '👩🏽‍🤝‍👨🏾',
         group: 'People & Body',
       },
@@ -5045,26 +4995,22 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'woman and man holding hands: medium-dark skin tone, light skin tone',
+        name: 'woman and man holding hands: medium-dark skin tone, light skin tone',
         char: '👩🏾‍🤝‍👨🏻',
         group: 'People & Body',
       },
       {
-        name:
-          'woman and man holding hands: medium-dark skin tone, medium-light skin tone',
+        name: 'woman and man holding hands: medium-dark skin tone, medium-light skin tone',
         char: '👩🏾‍🤝‍👨🏼',
         group: 'People & Body',
       },
       {
-        name:
-          'woman and man holding hands: medium-dark skin tone, medium skin tone',
+        name: 'woman and man holding hands: medium-dark skin tone, medium skin tone',
         char: '👩🏾‍🤝‍👨🏽',
         group: 'People & Body',
       },
       {
-        name:
-          'woman and man holding hands: medium-dark skin tone, dark skin tone',
+        name: 'woman and man holding hands: medium-dark skin tone, dark skin tone',
         char: '👩🏾‍🤝‍👨🏿',
         group: 'People & Body',
       },
@@ -5074,8 +5020,7 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'woman and man holding hands: dark skin tone, medium-light skin tone',
+        name: 'woman and man holding hands: dark skin tone, medium-light skin tone',
         char: '👩🏿‍🤝‍👨🏼',
         group: 'People & Body',
       },
@@ -5085,8 +5030,7 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'woman and man holding hands: dark skin tone, medium-dark skin tone',
+        name: 'woman and man holding hands: dark skin tone, medium-dark skin tone',
         char: '👩🏿‍🤝‍👨🏾',
         group: 'People & Body',
       },
@@ -5258,8 +5202,7 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'kiss: woman, woman, medium-light skin tone, medium-dark skin tone',
+        name: 'kiss: woman, woman, medium-light skin tone, medium-dark skin tone',
         char: '👩🏼‍❤️‍💋‍👩🏾',
         group: 'People & Body',
       },
@@ -5299,8 +5242,7 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'kiss: woman, woman, medium-dark skin tone, medium-light skin tone',
+        name: 'kiss: woman, woman, medium-dark skin tone, medium-light skin tone',
         char: '👩🏾‍❤️‍💋‍👩🏼',
         group: 'People & Body',
       },
@@ -5355,20 +5297,17 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, man, light skin tone, medium-light skin tone',
+        name: 'couple with heart: woman, man, light skin tone, medium-light skin tone',
         char: '👩🏻‍❤️‍👨🏼',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, man, light skin tone, medium skin tone',
+        name: 'couple with heart: woman, man, light skin tone, medium skin tone',
         char: '👩🏻‍❤️‍👨🏽',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, man, light skin tone, medium-dark skin tone',
+        name: 'couple with heart: woman, man, light skin tone, medium-dark skin tone',
         char: '👩🏻‍❤️‍👨🏾',
         group: 'People & Body',
       },
@@ -5378,8 +5317,7 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, man, medium-light skin tone, light skin tone',
+        name: 'couple with heart: woman, man, medium-light skin tone, light skin tone',
         char: '👩🏼‍❤️‍👨🏻',
         group: 'People & Body',
       },
@@ -5389,32 +5327,27 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, man, medium-light skin tone, medium skin tone',
+        name: 'couple with heart: woman, man, medium-light skin tone, medium skin tone',
         char: '👩🏼‍❤️‍👨🏽',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, man, medium-light skin tone, medium-dark skin tone',
+        name: 'couple with heart: woman, man, medium-light skin tone, medium-dark skin tone',
         char: '👩🏼‍❤️‍👨🏾',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, man, medium-light skin tone, dark skin tone',
+        name: 'couple with heart: woman, man, medium-light skin tone, dark skin tone',
         char: '👩🏼‍❤️‍👨🏿',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, man, medium skin tone, light skin tone',
+        name: 'couple with heart: woman, man, medium skin tone, light skin tone',
         char: '👩🏽‍❤️‍👨🏻',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, man, medium skin tone, medium-light skin tone',
+        name: 'couple with heart: woman, man, medium skin tone, medium-light skin tone',
         char: '👩🏽‍❤️‍👨🏼',
         group: 'People & Body',
       },
@@ -5424,8 +5357,7 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, man, medium skin tone, medium-dark skin tone',
+        name: 'couple with heart: woman, man, medium skin tone, medium-dark skin tone',
         char: '👩🏽‍❤️‍👨🏾',
         group: 'People & Body',
       },
@@ -5435,20 +5367,17 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, man, medium-dark skin tone, light skin tone',
+        name: 'couple with heart: woman, man, medium-dark skin tone, light skin tone',
         char: '👩🏾‍❤️‍👨🏻',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, man, medium-dark skin tone, medium-light skin tone',
+        name: 'couple with heart: woman, man, medium-dark skin tone, medium-light skin tone',
         char: '👩🏾‍❤️‍👨🏼',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, man, medium-dark skin tone, medium skin tone',
+        name: 'couple with heart: woman, man, medium-dark skin tone, medium skin tone',
         char: '👩🏾‍❤️‍👨🏽',
         group: 'People & Body',
       },
@@ -5458,8 +5387,7 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, man, medium-dark skin tone, dark skin tone',
+        name: 'couple with heart: woman, man, medium-dark skin tone, dark skin tone',
         char: '👩🏾‍❤️‍👨🏿',
         group: 'People & Body',
       },
@@ -5469,8 +5397,7 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, man, dark skin tone, medium-light skin tone',
+        name: 'couple with heart: woman, man, dark skin tone, medium-light skin tone',
         char: '👩🏿‍❤️‍👨🏼',
         group: 'People & Body',
       },
@@ -5480,8 +5407,7 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, man, dark skin tone, medium-dark skin tone',
+        name: 'couple with heart: woman, man, dark skin tone, medium-dark skin tone',
         char: '👩🏿‍❤️‍👨🏾',
         group: 'People & Body',
       },
@@ -5501,32 +5427,27 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, woman, light skin tone, medium-light skin tone',
+        name: 'couple with heart: woman, woman, light skin tone, medium-light skin tone',
         char: '👩🏻‍❤️‍👩🏼',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, woman, light skin tone, medium skin tone',
+        name: 'couple with heart: woman, woman, light skin tone, medium skin tone',
         char: '👩🏻‍❤️‍👩🏽',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, woman, light skin tone, medium-dark skin tone',
+        name: 'couple with heart: woman, woman, light skin tone, medium-dark skin tone',
         char: '👩🏻‍❤️‍👩🏾',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, woman, light skin tone, dark skin tone',
+        name: 'couple with heart: woman, woman, light skin tone, dark skin tone',
         char: '👩🏻‍❤️‍👩🏿',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, woman, medium-light skin tone, light skin tone',
+        name: 'couple with heart: woman, woman, medium-light skin tone, light skin tone',
         char: '👩🏼‍❤️‍👩🏻',
         group: 'People & Body',
       },
@@ -5536,32 +5457,27 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, woman, medium-light skin tone, medium skin tone',
+        name: 'couple with heart: woman, woman, medium-light skin tone, medium skin tone',
         char: '👩🏼‍❤️‍👩🏽',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, woman, medium-light skin tone, medium-dark skin tone',
+        name: 'couple with heart: woman, woman, medium-light skin tone, medium-dark skin tone',
         char: '👩🏼‍❤️‍👩🏾',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, woman, medium-light skin tone, dark skin tone',
+        name: 'couple with heart: woman, woman, medium-light skin tone, dark skin tone',
         char: '👩🏼‍❤️‍👩🏿',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, woman, medium skin tone, light skin tone',
+        name: 'couple with heart: woman, woman, medium skin tone, light skin tone',
         char: '👩🏽‍❤️‍👩🏻',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, woman, medium skin tone, medium-light skin tone',
+        name: 'couple with heart: woman, woman, medium skin tone, medium-light skin tone',
         char: '👩🏽‍❤️‍👩🏼',
         group: 'People & Body',
       },
@@ -5571,32 +5487,27 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, woman, medium skin tone, medium-dark skin tone',
+        name: 'couple with heart: woman, woman, medium skin tone, medium-dark skin tone',
         char: '👩🏽‍❤️‍👩🏾',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, woman, medium skin tone, dark skin tone',
+        name: 'couple with heart: woman, woman, medium skin tone, dark skin tone',
         char: '👩🏽‍❤️‍👩🏿',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, woman, medium-dark skin tone, light skin tone',
+        name: 'couple with heart: woman, woman, medium-dark skin tone, light skin tone',
         char: '👩🏾‍❤️‍👩🏻',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, woman, medium-dark skin tone, medium-light skin tone',
+        name: 'couple with heart: woman, woman, medium-dark skin tone, medium-light skin tone',
         char: '👩🏾‍❤️‍👩🏼',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, woman, medium-dark skin tone, medium skin tone',
+        name: 'couple with heart: woman, woman, medium-dark skin tone, medium skin tone',
         char: '👩🏾‍❤️‍👩🏽',
         group: 'People & Body',
       },
@@ -5606,32 +5517,27 @@ export const emojis: EmojiSet[] = [
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, woman, medium-dark skin tone, dark skin tone',
+        name: 'couple with heart: woman, woman, medium-dark skin tone, dark skin tone',
         char: '👩🏾‍❤️‍👩🏿',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, woman, dark skin tone, light skin tone',
+        name: 'couple with heart: woman, woman, dark skin tone, light skin tone',
         char: '👩🏿‍❤️‍👩🏻',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, woman, dark skin tone, medium-light skin tone',
+        name: 'couple with heart: woman, woman, dark skin tone, medium-light skin tone',
         char: '👩🏿‍❤️‍👩🏼',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, woman, dark skin tone, medium skin tone',
+        name: 'couple with heart: woman, woman, dark skin tone, medium skin tone',
         char: '👩🏿‍❤️‍👩🏽',
         group: 'People & Body',
       },
       {
-        name:
-          'couple with heart: woman, woman, dark skin tone, medium-dark skin tone',
+        name: 'couple with heart: woman, woman, dark skin tone, medium-dark skin tone',
         char: '👩🏿‍❤️‍👩🏾',
         group: 'People & Body',
       },
