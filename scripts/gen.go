@@ -8,7 +8,7 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"path"
+	"path/filepath"
 	"strings"
 )
 
@@ -157,7 +157,7 @@ func sortEmojis(emojis []emoji) map[string][]emojiSet {
 }
 
 func writeSorted(sortedEmojis map[string][]emojiSet) error {
-	fpath := path.Join("..", "src", "emojiData.ts")
+	fpath := filepath.Join("..", "src", "emojiData.ts")
 	log.Println("Writing to", fpath)
 
 	typescript := `export interface EmojiSet {
@@ -169,10 +169,9 @@ func writeSorted(sortedEmojis map[string][]emojiSet) error {
 export interface Emoji {
   name: string
   char: string
-  group: string
 }
 
-export const emojis: Record<string, EmojiSet[]> = {
+export const emojis: Readonly<Record<string, EmojiSet[]>> = {
 	`
 	for category, sets := range sortedEmojis {
 		setTS := fmt.Sprintf("%q: [", category)
@@ -180,15 +179,14 @@ export const emojis: Record<string, EmojiSet[]> = {
 			varintTS := "["
 			for _, varint := range set.Variants {
 				varintTS += fmt.Sprintf(
-					"{name: %q, char: %q, group: %q},",
+					"{name: '%v', char: '%v'},",
 					varint.Name,
 					varint.Char,
-					varint.Group,
 				)
 			}
 			varintTS += "]"
 			setTS += fmt.Sprintf(
-				"{name: %q, char: %q, variants: %v},",
+				"{name: '%v', char: '%v', variants: %v},",
 				set.Name,
 				set.Char,
 				varintTS,
