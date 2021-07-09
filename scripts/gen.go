@@ -248,13 +248,3 @@ export const emojis: Record<string, EmojiSet[]> = {
 func formatSubgroup(s string) string {
 	return strings.Title(strings.ReplaceAll(s, "-", " "))
 }
-
-// Returns true if a list of strings contains the given string
-func containsString(items []string, s string) bool {
-	for _, item := range items {
-		if item == s {
-			return true
-		}
-	}
-	return false
-}
