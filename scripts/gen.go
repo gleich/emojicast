@@ -171,7 +171,7 @@ export interface Emoji {
   char: string
 }
 
-export const emojis: Readonly<Record<string, EmojiSet[]>> = {
+export const emojis: Record<string, EmojiSet[]> = {
 	`
 	for category, sets := range sortedEmojis {
 		setTS := fmt.Sprintf("%q: [", category)
