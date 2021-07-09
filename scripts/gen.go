@@ -83,7 +83,7 @@ func sortEmojis(emojis []emoji) (map[string][]emojiSet, []string) {
 		codes := strings.Split(emojiData.Codes, " ")
 		if len(codes) != 1 {
 			if len(codes) == 2 {
-				if codes[1] == "FE0F" {
+				if codes[1] == "FE0F" || strings.HasPrefix(codes[0], "1F1") {
 					sets[emojiData.Group] = append(sets[emojiData.Group], emojiSet{
 						Code:     strings.Join(codes[0:1], " "),
 						Char:     emojiData.Char,
@@ -247,4 +247,14 @@ export const emojis: Record<string, EmojiSet[]> = {
 // Format subgroups
 func formatSubgroup(s string) string {
 	return strings.Title(strings.ReplaceAll(s, "-", " "))
+}
+
+// Returns true if a list of strings contains the given string
+func containsString(items []string, s string) bool {
+	for _, item := range items {
+		if item == s {
+			return true
+		}
+	}
+	return false
 }
