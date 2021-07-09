@@ -14,10 +14,11 @@ import (
 
 // Raw emoji from emoji.json
 type emoji struct {
-	Codes string
-	Char  string
-	Name  string
-	Group string
+	Codes    string
+	Char     string
+	Name     string
+	Group    string
+	Subgroup string
 }
 
 // Sorted and organized emoji with variant
@@ -25,6 +26,7 @@ type emojiSet struct {
 	Code     string
 	Char     string
 	Name     string
+	Subgroup string
 	Variants []emoji
 }
 
@@ -33,8 +35,8 @@ func main() {
 	if err != nil {
 		log.Panicf("Failed to download emojis %v", err)
 	}
-	sortedEmojis := sortEmojis(emojis)
-	writeSorted(sortedEmojis)
+	sortedEmojis, categoryNames := sortEmojis(emojis)
+	writeSorted(sortedEmojis, categoryNames)
 }
 
 func getEmojis() ([]emoji, error) {
@@ -67,12 +69,13 @@ func getEmojis() ([]emoji, error) {
 	return emojis, nil
 }
 
-func sortEmojis(emojis []emoji) map[string][]emojiSet {
+func sortEmojis(emojis []emoji) (map[string][]emojiSet, []string) {
 	log.Println("Sorting emojis")
 
 	var (
-		subEmojis = []emoji{}
-		sets      = map[string][]emojiSet{}
+		subEmojis     = []emoji{}
+		categoryNames = []string{} // We need to do this to keep the category order
+		sets          = map[string][]emojiSet{}
 	)
 
 	// Adding root sets and adding emojis that should be sub emojis
@@ -82,19 +85,32 @@ func sortEmojis(emojis []emoji) map[string][]emojiSet {
 			if len(codes) == 2 {
 				if codes[1] == "FE0F" {
 					sets[emojiData.Group] = append(sets[emojiData.Group], emojiSet{
-						Code: strings.Join(codes[0:1], " "),
-						Char: emojiData.Char,
-						Name: emojiData.Name,
+						Code:     strings.Join(codes[0:1], " "),
+						Char:     emojiData.Char,
+						Name:     emojiData.Name,
+						Subgroup: emojiData.Subgroup,
 					})
 				}
 			}
 			subEmojis = append(subEmojis, emojiData)
 		} else {
 			sets[emojiData.Group] = append(sets[emojiData.Group], emojiSet{
-				Code: codes[0],
-				Char: emojiData.Char,
-				Name: emojiData.Name,
+				Code:     codes[0],
+				Char:     emojiData.Char,
+				Subgroup: emojiData.Subgroup,
+				Name:     emojiData.Name,
 			})
+		}
+
+		addCategory := true
+		for _, category := range categoryNames {
+			if category == emojiData.Group {
+				addCategory = false
+				break
+			}
+		}
+		if addCategory {
+			categoryNames = append(categoryNames, emojiData.Group)
 		}
 	}
 
@@ -153,43 +169,48 @@ func sortEmojis(emojis []emoji) map[string][]emojiSet {
 	}
 
 	log.Println("Sorted emojis")
-	return patchedSets
+	return patchedSets, categoryNames
 }
 
-func writeSorted(sortedEmojis map[string][]emojiSet) error {
+func writeSorted(sortedEmojis map[string][]emojiSet, categoryNames []string) error {
 	fpath := filepath.Join("..", "src", "emojiData.ts")
 	log.Println("Writing to", fpath)
 
 	typescript := `export interface EmojiSet {
   name: string
   char: string
+  subgroup: string
   variants: Emoji[]
 }
 
 export interface Emoji {
   name: string
   char: string
+  subgroup: string
 }
 
 export const emojis: Record<string, EmojiSet[]> = {
 	`
-	for category, sets := range sortedEmojis {
+	for _, category := range categoryNames {
+		sets := sortedEmojis[category]
 		setTS := fmt.Sprintf("%q: [", category)
 		for _, set := range sets {
-			varintTS := "["
-			for _, varint := range set.Variants {
-				varintTS += fmt.Sprintf(
-					"{name: '%v', char: '%v'},",
-					varint.Name,
-					varint.Char,
+			variantTS := "["
+			for _, variant := range set.Variants {
+				variantTS += fmt.Sprintf(
+					"{name: '%v', char: '%v', subgroup: '%v'},",
+					variant.Name,
+					variant.Char,
+					formatSubgroup(variant.Subgroup),
 				)
 			}
-			varintTS += "]"
+			variantTS += "]"
 			setTS += fmt.Sprintf(
-				"{name: '%v', char: '%v', variants: %v},",
+				"{name: '%v', char: '%v', subgroup: '%v', variants: %v},",
 				set.Name,
 				set.Char,
-				varintTS,
+				formatSubgroup(set.Subgroup),
+				variantTS,
 			)
 		}
 		setTS += "],"
@@ -221,4 +242,9 @@ export const emojis: Record<string, EmojiSet[]> = {
 	log.Println("Wrote changes to", fpath)
 
 	return nil
+}
+
+// Format subgroups
+func formatSubgroup(s string) string {
+	return strings.Title(strings.ReplaceAll(s, "-", " "))
 }

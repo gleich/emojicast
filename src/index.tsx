@@ -10,7 +10,12 @@ function main() {
     sections.push(
       <List.Section title={category}>
         {sets.map((emoji) => (
-          <List.Item title={emoji.name} icon={emoji.char} index={emoji.name}>
+          <List.Item
+            title={emoji.name}
+            icon={emoji.char}
+            index={emoji.name}
+            subtitle={emoji.subgroup}
+          >
             <ActionPanel>
               <CopyToClipboardAction
                 title={'Copy Emoji'}
