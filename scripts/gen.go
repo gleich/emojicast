@@ -25,7 +25,6 @@ type emojiSet struct {
 	Code     string
 	Char     string
 	Name     string
-	Group    string
 	Variants []emoji
 }
 
@@ -68,99 +67,102 @@ func getEmojis() ([]emoji, error) {
 	return emojis, nil
 }
 
-func sortEmojis(emojis []emoji) []emojiSet {
+func sortEmojis(emojis []emoji) map[string][]emojiSet {
 	log.Println("Sorting emojis")
 
 	var (
 		subEmojis = []emoji{}
-		sets      = []emojiSet{}
+		sets      = map[string][]emojiSet{}
 	)
 
-	// Adding root sets
+	// Adding root sets and adding emojis that should be sub emojis
 	for _, emojiData := range emojis {
 		codes := strings.Split(emojiData.Codes, " ")
 		if len(codes) != 1 {
 			if len(codes) == 2 {
 				if codes[1] == "FE0F" {
-					sets = append(sets, emojiSet{
-						Code:  strings.Join(codes[0:1], " "),
-						Char:  emojiData.Char,
-						Name:  emojiData.Name,
-						Group: emojiData.Group,
+					sets[emojiData.Group] = append(sets[emojiData.Group], emojiSet{
+						Code: strings.Join(codes[0:1], " "),
+						Char: emojiData.Char,
+						Name: emojiData.Name,
 					})
 				}
 			}
 			subEmojis = append(subEmojis, emojiData)
 		} else {
-			sets = append(sets, emojiSet{
-				Code:  codes[0],
-				Char:  emojiData.Char,
-				Name:  emojiData.Name,
-				Group: emojiData.Group,
+			sets[emojiData.Group] = append(sets[emojiData.Group], emojiSet{
+				Code: codes[0],
+				Char: emojiData.Char,
+				Name: emojiData.Name,
 			})
 		}
 	}
 
-	// Adding subsets
-	for _, emojiData := range subEmojis {
-		codes := strings.Split(emojiData.Codes, " ")
+	// Adding subsets root main sets
+	for _, subEmojiData := range subEmojis {
+		codes := strings.Split(subEmojiData.Codes, " ")
 		rootCode := codes[0]
-		for i, set := range sets {
-			if set.Code == rootCode {
-				sets[i].Variants = append(sets[i].Variants, emojiData)
+		for category, groupSets := range sets {
+			for i, emojiData := range groupSets {
+				if emojiData.Code == rootCode {
+					sets[category][i].Variants = append(sets[category][i].Variants, subEmojiData)
+				}
 			}
 		}
 	}
 
 	// Removing duplicate sets
 	addedNames := []string{}
-	patchedSets := []emojiSet{}
-	for _, set := range sets {
-		duplicate := false
-		for _, name := range addedNames {
-			if name == set.Name {
-				duplicate = true
-				break
-			}
-		}
-		if !duplicate {
-			addedNames = append(addedNames, set.Name)
-			patchedSets = append(patchedSets, set)
-		}
-	}
-
-	// Removing duplicate variants
-	for i, set := range patchedSets {
-		patchedVarints := []emoji{}
-		addedNames := []string{}
-		for _, variant := range set.Variants {
+	patchedSets := map[string][]emojiSet{}
+	for category, groupSets := range sets {
+		for _, emojiData := range groupSets {
 			duplicate := false
 			for _, name := range addedNames {
-				if name == variant.Name {
+				if name == emojiData.Name {
 					duplicate = true
 					break
 				}
 			}
 			if !duplicate {
-				patchedVarints = append(patchedVarints, variant)
-				addedNames = append(addedNames, variant.Name)
+				addedNames = append(addedNames, emojiData.Name)
+				patchedSets[category] = append(patchedSets[category], emojiData)
 			}
 		}
-		patchedSets[i].Variants = patchedVarints
+	}
+
+	// Removing duplicate variants
+	for category, groupSets := range patchedSets {
+		for i, set := range groupSets {
+			patchedVariants := []emoji{}
+			addedNames := []string{}
+			for _, variant := range set.Variants {
+				duplicate := false
+				for _, name := range addedNames {
+					if name == variant.Name {
+						duplicate = true
+						break
+					}
+				}
+				if !duplicate {
+					patchedVariants = append(patchedVariants, variant)
+					addedNames = append(addedNames, variant.Name)
+				}
+			}
+			patchedSets[category][i].Variants = patchedVariants
+		}
 	}
 
 	log.Println("Sorted emojis")
 	return patchedSets
 }
 
-func writeSorted(sortedEmojis []emojiSet) error {
+func writeSorted(sortedEmojis map[string][]emojiSet) error {
 	fpath := path.Join("..", "src", "emojiData.ts")
 	log.Println("Writing to", fpath)
 
 	typescript := `export interface EmojiSet {
   name: string
   char: string
-  group: string
   variants: Emoji[]
 }
 
@@ -170,28 +172,32 @@ export interface Emoji {
   group: string
 }
 
-export const emojis: EmojiSet[] = [
+export const emojis: Record<string, EmojiSet[]> = {
 	`
-	for _, set := range sortedEmojis {
-		varintTS := "["
-		for _, varint := range set.Variants {
-			varintTS += fmt.Sprintf(
-				"{name: '%v', char: '%v', group: '%v'},",
-				varint.Name,
-				varint.Char,
-				varint.Group,
+	for category, sets := range sortedEmojis {
+		setTS := fmt.Sprintf("%q: [", category)
+		for _, set := range sets {
+			varintTS := "["
+			for _, varint := range set.Variants {
+				varintTS += fmt.Sprintf(
+					"{name: %q, char: %q, group: %q},",
+					varint.Name,
+					varint.Char,
+					varint.Group,
+				)
+			}
+			varintTS += "]"
+			setTS += fmt.Sprintf(
+				"{name: %q, char: %q, variants: %v},",
+				set.Name,
+				set.Char,
+				varintTS,
 			)
 		}
-		varintTS += "]"
-		typescript += fmt.Sprintf(
-			"{name: '%v', char: '%v', group: '%v', variants: %v},",
-			set.Name,
-			set.Char,
-			set.Group,
-			varintTS,
-		)
+		setTS += "],"
+		typescript += setTS
 	}
-	typescript += "]"
+	typescript += "}"
 
 	// Remove it if it exists
 	_, err := os.Stat(fpath)
