@@ -4,6 +4,9 @@ import {
   ActionPanel,
   render,
   PasteAction,
+  pasteText,
+  Icon,
+  closeMainWindow,
 } from '@raycast/api'
 import { emojis } from './emojiData'
 
@@ -31,6 +34,17 @@ function main() {
                 title={'Copy Emoji'}
                 content={emoji.char}
               />
+              <ActionPanel.Submenu title="Choose Variant" icon={Icon.List}>
+                {emoji.variants.map((variant) => (
+                  <ActionPanel.Item
+                    title={variant.char}
+                    onAction={() => {
+                      pasteText(variant.char)
+                      closeMainWindow()
+                    }}
+                  />
+                ))}
+              </ActionPanel.Submenu>
             </ActionPanel>
           </List.Item>
         ))}
