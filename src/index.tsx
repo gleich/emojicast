@@ -1,4 +1,10 @@
-import { CopyToClipboardAction, List, ActionPanel, render } from '@raycast/api'
+import {
+  CopyToClipboardAction,
+  List,
+  ActionPanel,
+  render,
+  PasteAction,
+} from '@raycast/api'
 import { emojis } from './emojiData'
 
 main()
@@ -17,6 +23,10 @@ function main() {
             subtitle={emoji.subgroup}
           >
             <ActionPanel>
+              <PasteAction
+                title="Paste Emoji"
+                content={emoji.char}
+              ></PasteAction>
               <CopyToClipboardAction
                 title={'Copy Emoji'}
                 content={emoji.char}
