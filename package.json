@@ -1,9 +1,9 @@
 {
   "name": "emojicast",
-  "title": "Copy an Emoji",
+  "title": "Find an Emoji",
   "icon": "logo.png",
   "version": "1.0.0",
-  "description": "An emoji selector for raycast",
+  "description": "Copy or paste an emoji",
   "author": "Matt Gleich <email@mattglei.ch>",
   "license": "MPL-2.0",
   "private": true,

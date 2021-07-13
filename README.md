@@ -1,6 +1,6 @@
 # emojicast
 
-🚀 An emoji selector for raycast
+🚀 Emoji selector for raycast
 
 ## Development
 
