@@ -26,10 +26,7 @@ function main() {
             subtitle={emoji.subgroup}
           >
             <ActionPanel>
-              <PasteAction
-                title="Paste Emoji"
-                content={emoji.char}
-              ></PasteAction>
+              <PasteAction title="Paste Emoji" content={emoji.char} />
               <CopyToClipboardAction
                 title={'Copy Emoji'}
                 content={emoji.char}
