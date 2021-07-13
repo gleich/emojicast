@@ -31,17 +31,19 @@ function main() {
                 title={'Copy Emoji'}
                 content={emoji.char}
               />
-              <ActionPanel.Submenu title="Choose Variant" icon={Icon.List}>
-                {emoji.variants.map((variant) => (
-                  <ActionPanel.Item
-                    title={variant.char}
-                    onAction={() => {
-                      pasteText(variant.char)
-                      closeMainWindow()
-                    }}
-                  />
-                ))}
-              </ActionPanel.Submenu>
+              {emoji.variants.length != 0 ? (
+                <ActionPanel.Submenu title="Choose Variant" icon={Icon.List}>
+                  {emoji.variants.map((variant) => (
+                    <ActionPanel.Item
+                      title={variant.char}
+                      onAction={() => {
+                        pasteText(variant.char)
+                        closeMainWindow()
+                      }}
+                    />
+                  ))}
+                </ActionPanel.Submenu>
+              ) : null}
             </ActionPanel>
           </List.Item>
         ))}
