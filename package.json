@@ -27,8 +27,8 @@
   "commands": [
     {
       "name": "index",
-      "title": "Copy an Emoji",
-      "description": "Copy an emoji to your system clipboard",
+      "title": "Find an Emoji",
+      "description": "Copy or paste an emoji",
       "mode": "view"
     }
   ],
