@@ -22,30 +22,32 @@ function main() {
           <List.Item
             title={emoji.name}
             icon={emoji.char}
-            index={emoji.name}
+            id={emoji.name}
+            key={emoji.char}
             subtitle={emoji.subgroup}
-          >
-            <ActionPanel>
-              <PasteAction title="Paste Emoji" content={emoji.char} />
-              <CopyToClipboardAction
-                title={'Copy Emoji'}
-                content={emoji.char}
-              />
-              {emoji.variants.length != 0 ? (
-                <ActionPanel.Submenu title="Choose Variant" icon={Icon.List}>
-                  {emoji.variants.map((variant) => (
-                    <ActionPanel.Item
-                      title={variant.char}
-                      onAction={() => {
-                        pasteText(variant.char)
-                        closeMainWindow()
-                      }}
-                    />
-                  ))}
-                </ActionPanel.Submenu>
-              ) : null}
-            </ActionPanel>
-          </List.Item>
+            actions={
+              <ActionPanel>
+                <PasteAction title="Paste Emoji" content={emoji.char} />
+                <CopyToClipboardAction
+                  title={'Copy Emoji'}
+                  content={emoji.char}
+                />
+                {emoji.variants.length != 0 ? (
+                  <ActionPanel.Submenu title="Choose Variant" icon={Icon.List}>
+                    {emoji.variants.map((variant) => (
+                      <ActionPanel.Item
+                        title={variant.char}
+                        onAction={() => {
+                          pasteText(variant.char)
+                          closeMainWindow()
+                        }}
+                      />
+                    ))}
+                  </ActionPanel.Submenu>
+                ) : null}
+              </ActionPanel>
+            }
+          />
         ))}
       </List.Section>
     )
